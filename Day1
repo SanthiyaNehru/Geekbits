@@ -1,0 +1,38 @@
+class Solution {
+    public int minTime(int[] arr, int k) {
+        int low = 0, high = 0, ans = 0;
+        for (int n : arr) 
+        {
+            high += n;
+            low = Math.max(low, n);
+        }
+        while (low <= high) 
+        {
+            int mid = (low + high) / 2;
+            int painters = 1, sum = 0;
+
+            for (int n : arr) 
+            {
+                if (sum + n <= mid)
+                {
+                    sum += n;
+                } else
+                {
+                    painters++;
+                    sum = n;
+                }
+            }
+
+            if (painters <= k)
+            {
+                ans = mid;
+                high = mid - 1;
+            } else 
+            {
+                low = mid + 1;
+            }
+        }
+        return ans;
+        
+    }
+}
